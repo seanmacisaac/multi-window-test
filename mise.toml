@@ -61,20 +61,6 @@ go_set_goroot = false
 # Allows us to use hooks.enter without warning.
 experimental = true
 
-# Attempt to source the wonder aliases in the current shell environment.
-# This is a bit awkward but since we do not know the active shell from this context,
-# source them in all shells.
-# TODO: follow-up with mise maintainers to see if there is a better approach.
-[[hooks.enter]]
-shell = "bash"
-script = "source {{config_root}}/wonder-aliases.sh"
-[[hooks.enter]]
-shell = "fish"
-script = "source {{config_root}}/wonder-aliases.sh"
-[[hooks.enter]]
-shell = "zsh"
-script = "source {{config_root}}/wonder-aliases.sh"
-
 # Use git. Ref: https://github.com/jdx/mise/issues/2962#issuecomment-2623561271
 gix = false
 libgit2 = false
