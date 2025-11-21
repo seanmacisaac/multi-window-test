@@ -1,0 +1,16 @@
+{
+  "name": "multi-window-test",
+  "version": "1.0.0",
+  "description": "Mutli Window Performance Test",
+  "license": "MIT",
+  "author": "sean",
+  "type": "commonjs",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "electron": "^37.7.1"
+  }
+}

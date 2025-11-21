@@ -1,0 +1,80 @@
+min_version = "2025.9.20"
+
+[env]
+TG_PROVIDER_CACHE = "true"
+TG_DEPENDENCY_FETCH_OUTPUT_FROM_STATE = "true"
+TG_STRICT_CONTROL= "skip-dependencies-inputs,skip-dependencies-inputs"
+WONDER_ROOT = "{{config_root}}"
+
+_.path = { path = "{{exec(command='go env GOPATH')}}/bin:{{config_root}}/scripts", tools = true}
+
+# To add a new tool, first check the mise registry:
+# https://mise.jdx.dev/registry.html
+# If missing, add an aliased tool named `[tool]-alias`, for example:
+# https://github.com/WonderInventions/wonder/pull/28983
+# Then open a PR to add the tool to the mise registry, for example:
+# https://github.com/jdx/mise/pull/4928
+# Once released, bump the `min_version` and remove the alias.
+#
+# Additionally, make sure the tool is managed by renovate:
+# https://github.com/renovatebot/renovate/blob/main/lib/modules/manager/mise/upgradeable-tooling.ts
+# If not, comment as unmanged by renovate, and add the tool to renovate, for example:
+# https://github.com/renovatebot/renovate/pull/35650
+# Once released, remove the comment.
+
+[tools]
+# Make sure the python tool first so that it is part of the path before aws-cli.
+# This is a hack because the aws-cli includes a Python target in the PATH that
+# conflicts with the Python tool.
+python = "3.10.2"
+
+actionlint = "1.7.9"
+astro = "1.38.1"
+aws-cli = "2.32.2"
+aws-vault = "7.2.0"
+buf = "1.60.0"
+ccache = "4.12.1"
+consul = "1.18.1"
+go = "1.25.4"
+hivemind = "1.1.0"
+java = "zulu-21.44.17"
+jq = "1.8.1"
+kafka = "apache-3.9.0"
+localstack = "4.9.2"
+node = "24.11.1"
+opentofu = "1.10.5"
+protoc = "33.1"
+redis = "8.4.0"
+shellcheck = "0.11.0"
+skeema = "1.13.1"
+sops = "3.11.0"
+stripe = "1.32.0"
+terragrunt = "0.84.0"
+tilt = "0.36.0"
+tusd = "2.8.0"
+
+[settings]
+go_set_gobin = false
+go_set_gopath = true
+go_set_goroot = false
+
+# Allows us to use hooks.enter without warning.
+experimental = true
+
+# Attempt to source the wonder aliases in the current shell environment.
+# This is a bit awkward but since we do not know the active shell from this context,
+# source them in all shells.
+# TODO: follow-up with mise maintainers to see if there is a better approach.
+[[hooks.enter]]
+shell = "bash"
+script = "source {{config_root}}/wonder-aliases.sh"
+[[hooks.enter]]
+shell = "fish"
+script = "source {{config_root}}/wonder-aliases.sh"
+[[hooks.enter]]
+shell = "zsh"
+script = "source {{config_root}}/wonder-aliases.sh"
+
+# Use git. Ref: https://github.com/jdx/mise/issues/2962#issuecomment-2623561271
+gix = false
+libgit2 = false

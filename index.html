@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'unsafe-inline'"
+    />
+    <meta
+      http-equiv="X-Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'unsafe-inline'"
+    />
+    <title>CSS animation window</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        overflow: hidden;
+        background: radial-gradient(circle at 20% 20%, #1e3a8a, #020617);
+        color: #e5e7eb;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+          sans-serif;
+      }
+
+      .info {
+        position: absolute;
+        top: 12px;
+        left: 16px;
+        z-index: 2;
+        background: rgba(15, 23, 42, 0.7);
+        padding: 8px 12px;
+        border-radius: 6px;
+        font-size: 12px;
+        backdrop-filter: blur(6px);
+      }
+
+      .info h1 {
+        margin: 0 0 4px;
+        font-size: 13px;
+        font-weight: 600;
+      }
+
+      .info p {
+        margin: 0;
+        font-size: 11px;
+        opacity: 0.8;
+      }
+
+      .grid {
+        position: absolute;
+        inset: 0;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+        grid-auto-rows: 80px;
+        gap: 8px;
+        padding: 16px;
+        box-sizing: border-box;
+      }
+
+      .cell {
+        position: relative;
+        overflow: hidden;
+      }
+
+      .square {
+        position: absolute;
+        width: 70px;
+        height: 70px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 16px;
+        background-image: conic-gradient(
+          from 0deg,
+          #f97316,
+          #ec4899,
+          #22d3ee,
+          #a855f7,
+          #f97316
+        );
+        box-shadow: 0 0 20px rgba(248, 250, 252, 0.4);
+        animation:
+          spin 3s linear infinite,
+          pulse 1.8s ease-in-out infinite alternate,
+          hueShift 8s linear infinite;
+        will-change: transform, opacity, filter;
+      }
+
+      .cell:nth-child(3n) .square {
+        animation-duration: 2.4s, 1.5s, 6s;
+      }
+
+      .cell:nth-child(5n) .square {
+        animation-duration: 3.8s, 2.2s, 10s;
+      }
+
+      .cell:nth-child(7n) .square {
+        animation-duration: 2.1s, 1.2s, 5s;
+      }
+
+      @keyframes spin {
+        from {
+          transform: translate(-50%, -50%) rotate(0deg) scale(0.9);
+        }
+        to {
+          transform: translate(-50%, -50%) rotate(360deg) scale(1.1);
+        }
+      }
+
+      @keyframes pulse {
+        from {
+          opacity: 0.6;
+          box-shadow: 0 0 8px rgba(248, 250, 252, 0.2);
+        }
+        to {
+          opacity: 1;
+          box-shadow: 0 0 28px rgba(248, 250, 252, 0.8);
+        }
+      }
+
+      @keyframes hueShift {
+        from {
+          filter: hue-rotate(0deg) saturate(1);
+        }
+        to {
+          filter: hue-rotate(360deg) saturate(1.4);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="info">
+      <h1>GPU paint test – main window</h1>
+      <p>CSS transforms, shadows, and hue-rotate running continuously.</p>
+    </div>
+    <div class="grid">
+      <div class="cell"><div class="square"></div></div>
+      <div class="cell"><div class="square"></div></div>
+      <div class="cell"><div class="square"></div></div>
+      <div class="cell"><div class="square"></div></div>
+      <div class="cell"><div class="square"></div></div>
+      <div class="cell"><div class="square"></div></div>
+      <div class="cell"><div class="square"></div></div>
+      <div class="cell"><div class="square"></div></div>
+      <div class="cell"><div class="square"></div></div>
+      <div class="cell"><div class="square"></div></div>
+      <div class="cell"><div class="square"></div></div>
+      <div class="cell"><div class="square"></div></div>
+      <div class="cell"><div class="square"></div></div>
+      <div class="cell"><div class="square"></div></div>
+      <div class="cell"><div class="square"></div></div>
+      <div class="cell"><div class="square"></div></div>
+      <div class="cell"><div class="square"></div></div>
+      <div class="cell"><div class="square"></div></div>
+      <div class="cell"><div class="square"></div></div>
+      <div class="cell"><div class="square"></div></div>
+      <div class="cell"><div class="square"></div></div>
+      <div class="cell"><div class="square"></div></div>
+      <div class="cell"><div class="square"></div></div>
+      <div class="cell"><div class="square"></div></div>
+      <div class="cell"><div class="square"></div></div>
+      <div class="cell"><div class="square"></div></div>
+      <div class="cell"><div class="square"></div></div>
+      <div class="cell"><div class="square"></div></div>
+      <div class="cell"><div class="square"></div></div>
+      <div class="cell"><div class="square"></div></div>
+      <div class="cell"><div class="square"></div></div>
+      <div class="cell"><div class="square"></div></div>
+      <div class="cell"><div class="square"></div></div>
+      <div class="cell"><div class="square"></div></div>
+      <div class="cell"><div class="square"></div></div>
+      <div class="cell"><div class="square"></div></div>
+      <div class="cell"><div class="square"></div></div>
+      <div class="cell"><div class="square"></div></div>
+    </div>
+  </body>
+</html>
